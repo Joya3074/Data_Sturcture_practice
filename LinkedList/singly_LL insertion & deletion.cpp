@@ -65,6 +65,73 @@ void insert_at_position(int value,int pos)
     temp->next=n;
 }
 
+//Delete at beginning
+void delete_at_beginning()
+{
+    if(head==nullptr)
+    {
+        cout<<"List is empty!"<<endl;
+        return;
+    }
+    Node* temp=head;
+    head=head->next;
+    delete temp;
+}
+
+//Delete at end
+void delete_at_end()
+{
+    if(head==nullptr)
+    {
+        cout<<"List is empty"<<endl;
+        return;
+    }
+    //if one node
+    if(head->next==nullptr)
+    {
+        delete head;
+        head=nullptr;
+        return;
+    }
+    Node* temp=head;
+    while(temp->next->next != nullptr)
+    {
+        temp=temp->next;
+    }
+    delete temp->next;
+    temp->next=nullptr;
+}
+
+//Delete at specific position
+void delete_at_position(int pos)
+{
+    if(head==nullptr)
+    {
+        cout<<"List is empty"<<endl;
+        return;
+    }
+    if(pos<=1)
+    {
+        delete_at_beginning();
+        return;
+    }
+    Node* temp=head;
+    int c=1;
+    while(c<pos-1 && temp->next!=nullptr)
+    {
+        temp=temp->next;
+        c++;
+    }
+    if(temp->next==nullptr)
+    {
+        cout<<"Invalid position"<<endl;
+        return;
+    }
+    Node* n=temp->next;
+    temp->next=temp->next->next;
+    delete n;
+}
+
 //Display
 void display()
 {
@@ -84,5 +151,12 @@ int main()
     insert_at_end(15);
     insert_at_position(25,3);
     display();
+    delete_at_beginning();
+    display();
+    delete_at_end();
+    display();
+    delete_at_position(2);
+    display();
     return 0;
 }
+
